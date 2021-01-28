@@ -1,17 +1,16 @@
 # ECG_PLATFORM
-ECG_PLATFORM is a complete framework designed for testing QRS detectors on publicly available datasets.
+ECG_PLATFORM is a complete framework designed for testing QRS detectors and ECG delineators on publicly available datasets.
 
 
+In ECG_PLATFORM there are included the following algorithms for the detection of QRS complexes:
 
-W ramach ECG_PLATFORM zawarte są następujące algorytmy detekcji zespołów QRS:
-
-1) engzee segmenter - algorytm zdefiniowany w ramach pakietu biosppy 
-2) hamilton segmenter - algorytm zdefinowany w ramach pakietu biosppy
+1) engzee segmenter - algorithm defined within the biosppy package
+2) hamilton segmenter - algorithm defined within the biosppy package
 3) WT delineator - Juan Pablo Martínez, Rute Almeida, Salvador Olmos, Member, IEEE, Ana Paula Rocha, and Pablo
 Laguna, Member, IEEE A Wavelet-Based ECG Delineator: Evaluation on Standard Databases
 4) ECGPUWAVE - https://www.physionet.org/content/ecgpuwave/1.3.4/
 
-Zestawy danych, na których testowane są metody:
+Data sets on which the methods are tested:
 
 1) cinc1 - https://physionet.org/pn3/challenge/2014/set-p/
 2) cinc2 - https://physionet.org/pn3/challenge/2014/set-p2/
@@ -20,3 +19,5 @@ Zestawy danych, na których testowane są metody:
 5) qtdb - https://physionet.org/content/qtdb/1.0.0/
 6) ludb - https://physionet.org/content/ludb/1.0.0/
 7) telehealth
+
+Required Python packages: biosppy, wfdb, numpy, pandas, h5py, scipy, matplotlib, scikit-learn

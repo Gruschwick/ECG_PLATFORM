@@ -19,5 +19,6 @@ Data sets on which the methods are tested:
 5) qtdb - https://physionet.org/content/qtdb/1.0.0/
 6) ludb - https://physionet.org/content/ludb/1.0.0/
 7) telehealth - https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/QTG0EP
+9) BUT PDB - https://www.physionet.org/content/but-pdb/1.0.0/
 
 Required Python packages: biosppy, wfdb, numpy, pandas, h5py, scipy, matplotlib, scikit-learn

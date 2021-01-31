@@ -89,9 +89,13 @@ databases = ["mitdbp"]*12
 patients = ['100', '101', '103', '106','117', '119', 
       '122', '207', '214',
       '222', '223', '231'
-]
-
+      ]
+# databases = ["ludb"] * 200
 # patients = [str(item) for item in list(range(1,201))]
+
+# databases = ["but-pdb"] * 50
+
+# patients = [str(i) for i in list(range(1,51))]
 
 
 def processECGFile(data):
@@ -175,57 +179,57 @@ def check_segmentation(dbcode, patient_nr):
 #        
 
 #WTDelin        
-    ppeaks = fcg.delineateMultiLeadECG(data.data[:,0][:,np.newaxis],data.freq)[0][:,7]
-    try: 
-        ann_selector = [x in PhysionetConstants.all_beats for x in data.annotations.anntype]
-        anntype_selected = np.array(data.annotations.anntype)[ann_selector]
-        annsamp_selected = data.annotations.annsamp[ann_selector]
-        fs = data.freq
-        ref_peaks = sample_to_time(annsamp_selected, data.freq)
-        pred_peaks = sample_to_time(ppeaks, data.freq)
-        
-        peaks_matching = match_peaks(ref_peaks, pred_peaks)
-            
-        ret_qrs_scores = qrs_detection_scores( ref_peaks, pred_peaks, peaks_matching)
-        #ret.append([dbcode] + [patient_nr] + [fs] + ["WTDelin"] +[anntype_selected] + [ppeaks] + [len(ref_peaks)] + 
-                #        [len(pred_peaks)] + [len(peaks_matching)] + list(ret_qrs_scores))
-        
-        ret.append([dbcode] + [patient_nr] + ["WTDelin"] + [len(ref_peaks)] + 
-                [len(pred_peaks)] + [len(peaks_matching)] + list(ret_qrs_scores))
-    except Exception:
-        traceback.print_exc()
-        print("---")
-        ret.append([dbcode] + [patient_nr] + ["WTDelin"] + [-1]*7)
-    
-    return ret
-
-#ECGPUWAVE
-    # try:
-    #     data2 = LoadFile(join(base_dir_raw, patient_nr), "qrs")
+    # ppeaks = fcg.delineateMultiLeadECG(data.data[:,0][:,np.newaxis],data.freq)[0][:,1]
+    # try: 
     #     ann_selector = [x in PhysionetConstants.all_beats for x in data.annotations.anntype]
-    #     ann_selector2 = [x in PhysionetConstants.P_beats for x in data2.annotations.anntype]
     #     anntype_selected = np.array(data.annotations.anntype)[ann_selector]
     #     annsamp_selected = data.annotations.annsamp[ann_selector]
-    #     annsamp_selected2 = data2.annotations.annsamp[ann_selector2]
     #     fs = data.freq
-        
     #     ref_peaks = sample_to_time(annsamp_selected, data.freq)
-    #     pred_peaks = sample_to_time(annsamp_selected2, data.freq)
+    #     pred_peaks = sample_to_time(ppeaks, data.freq)
         
     #     peaks_matching = match_peaks(ref_peaks, pred_peaks)
             
     #     ret_qrs_scores = qrs_detection_scores( ref_peaks, pred_peaks, peaks_matching)
-    #     # ret.append([dbcode] + [patient_nr] + [fs] + ["WTDelin"] +[anntype_selected] + [ppeaks] + [len(ref_peaks)] + 
-    #     #                 [len(pred_peaks)] + [len(peaks_matching)] + list(ret_qrs_scores))
+    #     #ret.append([dbcode] + [patient_nr] + [fs] + ["WTDelin"] +[anntype_selected] + [ppeaks] + [len(ref_peaks)] + 
+    #             #        [len(pred_peaks)] + [len(peaks_matching)] + list(ret_qrs_scores))
         
     #     ret.append([dbcode] + [patient_nr] + ["WTDelin"] + [len(ref_peaks)] + 
-    #           [len(pred_peaks)] + [len(peaks_matching)] + list(ret_qrs_scores))
+    #             [len(pred_peaks)] + [len(peaks_matching)] + list(ret_qrs_scores))
     # except Exception:
     #     traceback.print_exc()
     #     print("---")
     #     ret.append([dbcode] + [patient_nr] + ["WTDelin"] + [-1]*7)
     
     # return ret
+
+#ECGPUWAVE
+    try:
+        data2 = LoadFile(join(base_dir_raw, patient_nr), "qrs")
+        ann_selector = [x in PhysionetConstants.all_beats for x in data.annotations.anntype]
+        ann_selector2 = [x in PhysionetConstants.P_beats for x in data2.annotations.anntype]
+        anntype_selected = np.array(data.annotations.anntype)[ann_selector]
+        annsamp_selected = data.annotations.annsamp[ann_selector]
+        annsamp_selected2 = data2.annotations.annsamp[ann_selector2]
+        fs = data.freq
+        
+        ref_peaks = sample_to_time(annsamp_selected, data.freq)
+        pred_peaks = sample_to_time(annsamp_selected2, data.freq)
+        
+        peaks_matching = match_peaks(ref_peaks, pred_peaks)
+            
+        ret_qrs_scores = qrs_detection_scores( ref_peaks, pred_peaks, peaks_matching)
+        # ret.append([dbcode] + [patient_nr] + [fs] + ["ECGPU"] +[anntype_selected] + [ppeaks] + [len(ref_peaks)] + 
+        #                 [len(pred_peaks)] + [len(peaks_matching)] + list(ret_qrs_scores))
+        
+        ret.append([dbcode] + [patient_nr] + ["ECGPU"] + [len(ref_peaks)] + 
+              [len(pred_peaks)] + [len(peaks_matching)] + list(ret_qrs_scores))
+    except Exception:
+        traceback.print_exc()
+        print("---")
+        ret.append([dbcode] + [patient_nr] + ["ECGPU"] + [-1]*7)
+    
+    return ret
 
 #print(from_3dbs("cinc1", "101"))
 #print(from_3dbs("mitdb", "100"))
